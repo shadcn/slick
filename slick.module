@@ -20,6 +20,22 @@ function slick_views_api() {
 function slick_get_options() {
   $options = array();
 
+  $options['accessibility'] = array(
+    'name' => 'accessibility',
+    'title' => t('Accessibility'),
+    'description' => t('Enables tabbing and arrow key navigation'),
+    'type' => 'boolean',
+    'default' => TRUE,
+  );
+
+  $options['vertical'] = array(
+    'name' => 'vertical',
+    'title' => t('Vertical'),
+    'description' => t('Vertical slide direction'),
+    'type' => 'boolean',
+    'default' => FALSE,
+  );
+
   $options['autoplay'] = array(
     'name' => 'autoplay',
     'title' => t('Autoplay'),
@@ -52,6 +68,54 @@ function slick_get_options() {
     'default' => FALSE,
   );
 
+  $options['draggable'] = array(
+    'name' => 'draggable',
+    'title' => t('Draggable'),
+    'description' => t('Enable mouse dragging'),
+    'type' => 'boolean',
+    'default' => TRUE,
+  );
+
+  $options['swipe'] = array(
+    'name' => 'swipe',
+    'title' => t('Swipe'),
+    'description' => t('Enable swiping'),
+    'type' => 'boolean',
+    'default' => TRUE,
+  );
+
+  $options['touchmove'] = array(
+    'name' => 'touchMove',
+    'title' => t('TouchMove'),
+    'description' => t('Enable slide motion with touch'),
+    'type' => 'boolean',
+    'default' => TRUE,
+  );
+
+  $options['touchthreshold'] = array(
+    'name' => 'touchThreshold',
+    'title' => t('touchThreshold'),
+    'description' => t('Swipe distance threshold'),
+    'type' => 'integer',
+    'default' => 5,
+  );
+
+  $options['fade'] = array(
+    'name' => 'fade',
+    'title' => t('Fade'),
+    'description' => t('Enable fade'),
+    'type' => 'boolean',
+    'default' => FALSE,
+  );
+
+  $options['infinite'] = array(
+    'name' => 'infinite',
+    'title' => t('Infinite'),
+    'description' => t('Infinite loop sliding'),
+    'type' => 'boolean',
+    'default' => TRUE,
+  );
+
   $options['cssease'] = array(
     'name' => 'cssEase',
     'title' => t('cssEase'),
@@ -66,6 +130,22 @@ function slick_get_options() {
     'description' => t('Number of slides to show'),
     'type' => 'integer',
     'default' => 1,
+  );
+
+  $options['slidestoscroll'] = array(
+    'name' => 'slidesToScroll',
+    'title' => t('Slides to scroll'),
+    'description' => t('Number of slides to scroll'),
+    'type' => 'integer',
+    'default' => 1,
+  );
+
+  $options['speed'] = array(
+    'name' => 'speed',
+    'title' => t('Speed'),
+    'description' => t('Slide speed in milliseconds'),
+    'type' => 'integer',
+    'default' => 300,
   );
 
   return $options;
