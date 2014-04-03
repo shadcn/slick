@@ -21,13 +21,15 @@ function slick_get_options() {
   $options = array();
 
   $options['autoplay'] = array(
+    'name' => 'autoplay',
     'title' => t('Autoplay'),
     'description' => t('Enables Autoplay'),
     'type' => 'boolean',
     'default' => FALSE,
   );
 
-  $options['autoplaySpeed'] = array(
+  $options['autoplayspeed'] = array(
+    'name' => 'autoplaySpeed',
     'title' => t('Autoplay speed'),
     'description' => t('Autoplay Speed in milliseconds'),
     'type' => 'integer',
@@ -35,10 +37,35 @@ function slick_get_options() {
   );
 
   $options['arrows'] = array(
+    'name' => 'arrows',
     'title' => t('Arrows'),
     'description' => t('Show prev/next arrows'),
     'type' => 'boolean',
     'default' => TRUE,
+  );
+
+  $options['dots'] = array(
+    'name' => 'dots',
+    'title' => t('Dots'),
+    'description' => t('Current slide indicator dots'),
+    'type' => 'boolean',
+    'default' => FALSE,
+  );
+
+  $options['cssease'] = array(
+    'name' => 'cssEase',
+    'title' => t('cssEase'),
+    'description' => t('CSS3 Animation Easing'),
+    'type' => 'varchar',
+    'default' => 'ease',
+  );
+
+  $options['slidestoshow'] = array(
+    'name' => 'slidesToShow',
+    'title' => t('Slides to show'),
+    'description' => t('Number of slides to show'),
+    'type' => 'integer',
+    'default' => 1,
   );
 
   return $options;
