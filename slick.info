@@ -1,7 +1,8 @@
 name = Slick
 description = Slick carousel for Drupal
-
 core = 7.x
+
+dependencies[] = libraries
 
 files[] = slick.module
 files[] = theme/slick.theme.inc
