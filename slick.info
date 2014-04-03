@@ -1,0 +1,4 @@
+name = Slick
+description = Slick carousel for Drupal
+
+core = 7.x
