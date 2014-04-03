@@ -33,9 +33,14 @@ class slick_plugin_style_slick extends views_plugin_style {
 
     // Build slick options as form elements.
     $options = slick_get_options();
+    $form['slick_settings'] = array(
+      '#title' => t('Settings'),
+      '#type' => 'fieldset',
+      '#collapsible' => FALSE,
+    );
 
     foreach ($options as $name => $values) {
-      $form[$name] = array(
+      $form['slick_settings'][$name] = array(
         '#title' => $values['title'],
         '#description' => $values['description'],
         '#type' => ($values['type'] == 'boolean') ? 'checkbox' : 'textfield',

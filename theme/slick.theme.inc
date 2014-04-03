@@ -59,15 +59,5 @@ function template_preprocess_slick(&$variables) {
   }
 
   // Add slick options to js.
-  drupal_add_js(array('slick' => $slick_options), 'setting');  
-
-  // // Cast the 0 and 1 into bool as necessary.
-  // foreach ($settings as $key => $value) {
-  //   if ($slick_options[$key]['type'] == 'boolean') {
-  //     $value = ($value == 1) ? TRUE : FALSE;
-  //   }
-  //   $settings[$key] = $value;
-  // }
-
-  // drupal_add_js(array('slick' => $settings), 'setting');
+  drupal_add_js(array('slick' => $slick_options), 'setting');
 }
