@@ -4,3 +4,89 @@
  * @file
  * Slick carousel for Drupal.
  */
+
+/**
+ * Implements hook_views_api().
+ */
+function slick_views_api() {
+  return array(
+    'api' => '3',
+  );
+}
+
+/**
+ * Implements hook_library().
+ */
+function slick_library() {
+  $slick_library_path = slick_get_slick_path();
+  $slick_module_path = drupal_get_path('module', 'slick');
+
+  $libraries = array();
+
+  // Slick plugin.
+  $libraries['slick'] = array(
+    'title' => 'Slick',
+    'website' => 'http://kenwheeler.github.io/slick/',
+    'version' => '1.3.2',
+    'js' => array(
+      $slick_library_path . '/slick/slick.min.js' => array('group' => 'JS_LIBRARY'),
+    ),
+    'css' => array(
+      $slick_library_path . '/slick/slick.css' => array(
+        'type' => 'file',
+        'media' => 'screen',
+      ),
+    ),
+  );
+
+  // Slick module.
+  $libraries['drupal.slick'] = array(
+    'title' => 'Slick',
+    'version' => '1.0',
+    'js' => array(
+      $slick_module_path . '/js/slick.js' => array(),
+    ),
+    'css' => array(
+      $slick_module_path . '/css/slick.css' => array(
+        'type' => 'file',
+        'media' => 'screen',
+      ),
+    ),
+  );
+
+  return $libraries;
+}
+
+/**
+ * Get the location of the slick library.
+ *
+ * @return
+ *   The location of the library, or FALSE if the library isn't installed.
+ */
+function slick_get_slick_path() {
+  if (function_exists('libraries_get_path')) {
+    return libraries_get_path('slick');
+  }
+
+  // The following logic is taken from libraries_get_libraries()
+  $searchdir = array();
+
+  // Similar to 'modules' and 'themes' directories inside an installation
+  // profile, installation profiles may want to place libraries into a
+  // 'libraries' directory.
+  $searchdir[] = 'profiles/' . drupal_get_profile() . '/libraries';
+
+  // Always search sites/all/libraries.
+  $searchdir[] = 'sites/all/libraries';
+
+  // Also search sites/<domain>/*.
+  $searchdir[] = conf_path() . '/libraries';
+
+  foreach ($searchdir as $dir) {
+    if (file_exists($dir . '/slick/slick.min.js')) {
+      return $dir . '/slick';
+    }
+  }
+
+  return FALSE;
+}

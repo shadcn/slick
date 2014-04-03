@@ -2,3 +2,8 @@ name = Slick
 description = Slick carousel for Drupal
 
 core = 7.x
+
+files[] = slick.module
+files[] = theme/slick.theme.inc
+files[] = slick.views.inc
+files[] = slick_plugin_style_slick.inc
