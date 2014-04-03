@@ -61,3 +61,34 @@ function template_preprocess_slick(&$variables) {
   // Add slick options to js.
   drupal_add_js(array('slick' => $slick_options), 'setting');
 }
+
+/**
+ * Implements template_preprocess_slick().
+ */
+function template_preprocess_slick_carousel(&$variables) {
+  $items = $variables['items'];
+  $options = $variables['options'];
+  $slick_options = slick_get_options();
+  $settings = array_intersect_key($options, $slick_options);
+
+  // Add libraries.
+  drupal_add_library('slick', 'slick');
+  drupal_add_library('slick', 'drupal.slick');
+
+  // Add item classes.
+  foreach ($items as $index => $item) {
+    $item_classes = array('item', 'item-' . $index);
+    $variables['item_classes'][$index] = implode(" ", $item_classes);
+  }
+
+  // Add slick attributes.
+  $variables['classes_array'][] = 'slick';
+
+  // Set settings as data attributes.
+  foreach ($settings as $key => $value) {
+    $variables['attributes_array']['data-' . $key] = $value;
+  }
+
+  // Add slick options to js.
+  drupal_add_js(array('slick' => $slick_options), 'setting');
+}

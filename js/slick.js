@@ -26,7 +26,7 @@
         }
 
         // Set views-row as slide element
-        options.slide = '> div.views-row';
+        options.slide = '> div.views-row, > div.item';
 
         return options;
       }

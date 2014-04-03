@@ -15,6 +15,19 @@ function slick_views_api() {
 }
 
 /**
+ * Implements hook_theme().
+ */
+function slick_theme() {
+  return array(
+    'slick_carousel' => array(
+      'variables' => array('items' => NULL, 'options' => NULL),
+      'template' => 'theme/slick-carousel',
+      'file' => 'theme/slick.theme.inc',
+    ),
+  );
+}
+
+/**
  * Defines a list of options available for slick.
  */
 function slick_get_options() {
