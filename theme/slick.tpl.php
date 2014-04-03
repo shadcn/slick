@@ -13,8 +13,8 @@
  */
 ?>
 <div class="slick">
-  <?php foreach ($rows as $row): ?>
-    <div class="views-row">
+  <?php foreach ($rows as $index => $row): ?>
+    <div class="<?php print $row_classes[$index]; ?>">
       <?php print $row; ?>
     </div>
   <?php endforeach; ?>
