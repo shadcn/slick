@@ -7,8 +7,9 @@
       var getElementOptions = function(element) {
         // var options = $.extend({}, settings.slick);
         var options = {};
-        var data = $(element).data();
 
+        // Load settings from data attributes.
+        var data = $(element).data();
         for (name in data) {
           var value = data[name];
 
@@ -18,8 +19,10 @@
           }
 
           // Get proper js settings name from attribute.
-          name = getSettingsNameFromDataAttributeName(name);
-          options[name] = value;
+          var settingsName = getSettingsNameFromDataAttributeName(name);
+          if (settingsName) {
+            options[settingsName] = value;
+          }
         }
 
         // Set views-row as slide element
