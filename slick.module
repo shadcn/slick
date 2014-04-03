@@ -20,7 +20,6 @@ function slick_views_api() {
 function slick_library() {
   $slick_library_path = slick_get_slick_path();
   $slick_module_path = drupal_get_path('module', 'slick');
-
   $libraries = array();
 
   // Slick plugin.
@@ -32,10 +31,7 @@ function slick_library() {
       $slick_library_path . '/slick/slick.min.js' => array('group' => 'JS_LIBRARY'),
     ),
     'css' => array(
-      $slick_library_path . '/slick/slick.css' => array(
-        'type' => 'file',
-        'media' => 'screen',
-      ),
+      $slick_library_path . '/slick/slick.css' => array(),
     ),
   );
 
@@ -51,6 +47,10 @@ function slick_library() {
         'type' => 'file',
         'media' => 'screen',
       ),
+    ),
+    'dependencies' => array(
+      array('system', 'jquery.once'),
+      array('slick', 'slick'),
     ),
   );
 
