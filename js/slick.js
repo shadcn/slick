@@ -2,6 +2,7 @@
   Drupal.behaviors.slick = {
     attach: function(context, settings) {
 
+      // Function to prepare all the options for the slick() call.
       var getElementOptions = function(element) {
         var options = $.extend({});
 
