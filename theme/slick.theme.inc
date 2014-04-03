@@ -10,6 +10,8 @@
  */
 function template_preprocess_slick(&$variables) {
   $options = $variables['options'];
+  $slick_options = slick_get_options();
+  $settings = array_intersect_key($options, $slick_options);
 
   // Add libraries.
   drupal_add_library('slick', 'slick');
@@ -47,4 +49,17 @@ function template_preprocess_slick(&$variables) {
 
     $variables['row_classes'][$index] = implode(" ", $row_classes);
   }
+
+  // Add slick attributes.
+  $variables['classes_array'][] = 'slick';
+  
+  // Cast the 0 and 1 into bool as necessary.
+  foreach ($settings as $key => $value) {
+    if ($slick_options[$key]['type'] == 'boolean') {
+      $value = ($value == 1) ? TRUE : FALSE;
+    }
+    $settings[$key] = $value;
+  }
+
+  drupal_add_js(array('slick' => $settings), 'setting');
 }

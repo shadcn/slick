@@ -12,7 +12,7 @@
  * @ingroup views_templates
  */
 ?>
-<div class="slick">
+<div class="<?php print $classes; ?>" <?php print $attributes; ?>>
   <?php foreach ($rows as $index => $row): ?>
     <div class="<?php print $row_classes[$index]; ?>">
       <?php print $row; ?>

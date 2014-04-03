@@ -15,6 +15,36 @@ function slick_views_api() {
 }
 
 /**
+ * Defines a list of options available for slick.
+ */
+function slick_get_options() {
+  $options = array();
+
+  $options['autoplay'] = array(
+    'title' => t('Autoplay'),
+    'description' => t('Enables Autoplay'),
+    'type' => 'boolean',
+    'default' => FALSE,
+  );
+
+  $options['autoplaySpeed'] = array(
+    'title' => t('Autoplay speed'),
+    'description' => t('Autoplay Speed in milliseconds'),
+    'type' => 'integer',
+    'default' => 3000,
+  );
+
+  $options['arrows'] = array(
+    'title' => t('Arrows'),
+    'description' => t('Show prev/next arrows'),
+    'type' => 'boolean',
+    'default' => TRUE,
+  );
+
+  return $options;
+}
+
+/**
  * Implements hook_library().
  */
 function slick_library() {

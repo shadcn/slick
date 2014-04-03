@@ -16,6 +16,12 @@ class slick_plugin_style_slick extends views_plugin_style {
   function option_definition() {
     $options = parent::option_definition();
 
+    // Add slick options.
+    $slick_options = slick_get_options();
+    foreach ($slick_options as $name => $values) {
+      $options[$name] = array('default' => $values['default']);
+    }
+
     return $options;
   }
 
@@ -25,11 +31,17 @@ class slick_plugin_style_slick extends views_plugin_style {
     ctools_include('dependent');
     parent::options_form($form, $form_state);
 
-    $form['foo'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Foo'),
-      '#default_value' => $this->options['foo'],
-    );
+    // Build slick options as form elements.
+    $options = slick_get_options();
+
+    foreach ($options as $name => $values) {
+      $form[$name] = array(
+        '#title' => $values['title'],
+        '#description' => $values['description'],
+        '#type' => ($values['type'] == 'boolean') ? 'checkbox' : 'textfield',
+        '#default_value' => $this->options[$name],
+      );
+    }
   }
 
   // Run any necessary actions on submit.
