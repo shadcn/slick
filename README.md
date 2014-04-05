@@ -32,3 +32,7 @@ Slick works with Views and is available as a style plugin. Select slick as the f
     
     print theme('slick_carousel', array('items' => $items, 'options' => $options));
     ?>
+
+## Read more
+
+See the project page on drupal.org: http://drupal.org/project/slick.
