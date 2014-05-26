@@ -210,7 +210,7 @@ function slick_library() {
 /**
  * Get the location of the slick library.
  *
- * @return
+ * @return string.
  *   The location of the library, or FALSE if the library isn't installed.
  */
 function slick_get_slick_path() {
