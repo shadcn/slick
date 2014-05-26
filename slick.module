@@ -28,6 +28,18 @@ function slick_theme() {
 }
 
 /**
+ * Implements hook_field_formatter_info().
+ */
+function slick_field_formatter_info() {
+  return array(
+    'slick' => array(
+      'label' => t('Slick carousel'),
+      'field types' => array('image'),
+    ),
+  );
+}
+
+/**
  * Defines a list of options available for slick.
  */
 function slick_get_options() {
