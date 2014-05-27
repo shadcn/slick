@@ -31,12 +31,96 @@ function slick_theme() {
  * Implements hook_field_formatter_info().
  */
 function slick_field_formatter_info() {
-  return array(
+  $info = array(
     'slick' => array(
       'label' => t('Slick carousel'),
       'field types' => array('image'),
+      'settings' => array(
+        'slick_image_style' => 'thumbnail',
+      ),
     ),
   );
+
+  // Add slick options as defaults.
+  $options = slick_get_options();
+  foreach ($options as $name => $values) {
+    $info['slick']['settings'][$name] = $values['default'];
+  }
+
+  return $info;
+}
+
+/**
+ * Implements hook_field_formatter_settings_form().
+ */
+function slick_field_formatter_settings_form($field, $instance, $view_mode, $form, &$form_state) {
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+  $element = array();
+
+  $image_style_options = image_style_options(FALSE);
+
+  $element['slick_image_style'] = array(
+    '#title'   => t('Image style'),
+    '#type'    => 'select',
+    '#options' => $image_style_options,
+    '#default_value' => $settings['slick_image_style'],
+  );
+
+  // Build slick options as form elements.
+  $options = slick_get_options();
+  $element['slick_settings'] = array(
+    '#title' => t('Settings'),
+    '#type' => 'fieldset',
+    '#collapsible' => FALSE,
+  );
+
+  foreach ($options as $name => $values) {
+    $element['slick_settings'][$name] = array(
+      '#title' => $values['title'],
+      '#description' => $values['description'],
+      '#type' => ($values['type'] == 'boolean') ? 'checkbox' : 'textfield',
+      '#default_value' => $settings[$name],
+    );
+  }
+
+  return $element;
+}
+
+/**
+ * Implements hook_field_formatter_settings_summary().
+ */
+function slick_field_formatter_settings_summary($field, $instance, $view_mode) {
+  $display = $instance['display'][$view_mode];
+  $settings = $display['settings'];
+  $summary = t('Slick carousel');
+  return $summary;
+}
+
+/**
+ * Implements hook_field_formatter_view().
+ */
+function slick_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+  $settings = $display['settings'];
+
+  $slick = array(
+    '#theme' => 'slick_carousel',
+    '#options' => $settings,
+  );
+
+  foreach ($items as $i => $item) {
+    $slick['#items'][] = array(
+      '#theme' => 'image_style',
+      '#path' => $item['uri'],
+      '#style_name' => $settings['slick_image_style'],
+      '#attributes' => array(
+        'alt' => $item['alt'],
+        'title' => $item['title'],
+      ),
+    );
+  }
+
+  return $slick;
 }
 
 /**
