@@ -1,3 +1,6 @@
 /**
  * CSS for Slick module.
  */
+.slick {
+  overflow: hidden;
+}

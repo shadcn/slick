@@ -34,7 +34,7 @@ function slick_field_formatter_info() {
   $info = array(
     'slick' => array(
       'label' => t('Slick carousel'),
-      'field types' => array('image'),
+      'field types' => array('image', 'field_collection'),
       'settings' => array(
         'slick_image_style' => 'thumbnail',
       ),
@@ -58,25 +58,25 @@ function slick_field_formatter_settings_form($field, $instance, $view_mode, $for
   $settings = $display['settings'];
   $element = array();
 
-  $image_style_options = image_style_options(FALSE);
+  switch ($field->type) {
+    case 'image':
+      $image_style_options = image_style_options(FALSE);
+      $element['slick_image_style'] = array(
+        '#title'   => t('Image style'),
+        '#type'    => 'select',
+        '#options' => $image_style_options,
+        '#default_value' => $settings['slick_image_style'],
+      );
+      break;
+    case 'field_collection':
 
-  $element['slick_image_style'] = array(
-    '#title'   => t('Image style'),
-    '#type'    => 'select',
-    '#options' => $image_style_options,
-    '#default_value' => $settings['slick_image_style'],
-  );
+      break;
+  }
 
   // Build slick options as form elements.
   $options = slick_get_options();
-  $element['slick_settings'] = array(
-    '#title' => t('Settings'),
-    '#type' => 'fieldset',
-    '#collapsible' => FALSE,
-  );
-
   foreach ($options as $name => $values) {
-    $element['slick_settings'][$name] = array(
+    $element[$name] = array(
       '#title' => $values['title'],
       '#description' => $values['description'],
       '#type' => ($values['type'] == 'boolean') ? 'checkbox' : 'textfield',
@@ -102,22 +102,31 @@ function slick_field_formatter_settings_summary($field, $instance, $view_mode) {
  */
 function slick_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
   $settings = $display['settings'];
-
   $slick = array(
     '#theme' => 'slick_carousel',
     '#options' => $settings,
   );
 
-  foreach ($items as $i => $item) {
-    $slick['#items'][] = array(
-      '#theme' => 'image_style',
-      '#path' => $item['uri'],
-      '#style_name' => $settings['slick_image_style'],
-      '#attributes' => array(
-        'alt' => $item['alt'],
-        'title' => $item['title'],
-      ),
-    );
+  switch ($field['type']) {
+    case 'image':
+      foreach ($items as $i => $item) {
+        $slick['#items'][] = array(
+          '#theme' => 'image_style',
+          '#path' => $item['uri'],
+          '#style_name' => $settings['slick_image_style'],
+          '#attributes' => array(
+            'alt' => $item['alt'],
+            'title' => $item['title'],
+          ),
+        );
+      }
+      break;
+    case 'field_collection':
+      foreach ($items as $i => $item) {
+        $field_collection_item = field_collection_item_load($item['value']);
+        $slick['#items'][$i] = entity_view('field_collection_item', array($field_collection_item));
+      }
+      break;
   }
 
   return $slick;
