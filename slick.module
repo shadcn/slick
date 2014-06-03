@@ -68,6 +68,7 @@ function slick_field_formatter_settings_form($field, $instance, $view_mode, $for
         '#default_value' => $settings['slick_image_style'],
       );
       break;
+
     case 'field_collection':
 
       break;
@@ -121,6 +122,7 @@ function slick_field_formatter_view($entity_type, $entity, $field, $instance, $l
         );
       }
       break;
+
     case 'field_collection':
       foreach ($items as $i => $item) {
         $field_collection_item = field_collection_item_load($item['value']);
